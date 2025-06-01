@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikacja pogodowa</title>
+
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <h1>Aplikacja pogodowa</h1>
+    </header>
+    <main>
+        <section class="search">
+            <input type="text" placeholder="Podaj nazwę miasta">
+            <button>Sprawdź pogodę!</button>
+            <p class="error_message"></p>
+        </section>
+        <section class="weather">
+            <h2 class="city_name"></h2>
+            <div>
+                <img src="" alt="" class="weather_img">
+                <span class="temp"></span>
+            </div>
+            <p class="weather_description"></p>
+            <p>Temperatura odczuwalna: <span class="feels_like"></span></p>
+            <p>Wilgotność: <span class="humidity"></span></p>
+            <p>Ciśnienie: <span class="pressure"></span></p>
+            <p>Prędkość wiatru: <span class="wind_speed"></span></p>
+            <p>Zachmurzenie: <span class="clouds"></span></p>
+            <p>Widoczność: <span class="visibility"></span></p>
+        </section>
+        <section class="air_pollution">
+            <h3>Zanieczyszczenie powietrza</h3>
+            <div>
+                <img src="pm25.png" alt="" class="pollution_img">
+                <span class="value"></span>
+                <span>&micro;g/m<sup>3</sup></span>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Projekt WSB Gdańsk 2025</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>
