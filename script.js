@@ -1,6 +1,6 @@
-//Pobierz wszystkie elementy html, które mają być wykorzystywane w JS i przypisz je do zmiennych (15 zmiennych)
+// Pobierz wszystkie elementy html, które mają być wykorzystywane w JS i przypisz je do zmiennych (15 zmiennych)
 const input = document.querySelector('input');
-const button = document.querySelector('button');
+const button = document.querySelector('.search button');
 const errorMsg = document.querySelector('p.error_message');
 const cityName = document.querySelector('h2.city_name');
 const weatherImg = document.querySelector('img.weather_img');
@@ -12,7 +12,7 @@ const pressure = document.querySelector('span.pressure');
 const windSpeed = document.querySelector('span.wind_speed');
 const clouds = document.querySelector('span.clouds');
 const visibility = document.querySelector('span.visibility');
-const pollutionImg = document.querySelector('img.pollution_img')
+const pollutionImg = document.querySelector('img.pollution_img');
 const pollutionValue = document.querySelector('span.value');
 
 const apiInfo = {
@@ -24,16 +24,28 @@ const apiInfo = {
 }
 
 const getWeather = () => {
-    const apiInfoCity = input.value;
-    const apiURL = `${apiInfo.link}${apiInfoCity}${apiInfo.key}${apiInfo.units}${apiInfo.lang}`
-    console.log(apiURL);
+    const apiInfoCity = input.value.trim();
+    if (!apiInfoCity) {
+        errorMsg.textContent = 'Proszę podać nazwę miasta.';
+        return;
+    }
 
+    const apiURL = `${apiInfo.link}${apiInfoCity}${apiInfo.key}${apiInfo.units}${apiInfo.lang}`;
+    console.log(apiURL);
 
     axios.get(apiURL).then((response) => {
         console.log(response.data);
-        cityName.textContent =`${response.data.name}, ${response.data.sys.country}`;
-        weatherImg.src = `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
         cityName.textContent = `${response.data.name}, ${response.data.sys.country}`;
+        
+        // Pokaż obrazek pogodowy tylko, jeśli jest dostępny
+        if (response.data.weather[0].icon) {
+            weatherImg.src = `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
+            weatherImg.style.display = 'block';
+        } else {
+            weatherImg.style.display = 'none';
+            weatherImg.src = '';
+        }
+
         temp.textContent = `${Math.round(response.data.main.temp)}°C`;
         weatherDescription.textContent = response.data.weather[0].description;
         feelsLike.textContent = `${Math.round(response.data.main.feels_like)}°C`;
@@ -66,18 +78,30 @@ const getWeather = () => {
             } else if (pm25 >= 75) {
                 pollutionImg.style.backgroundColor = "red";  
             }
-        })
-        }).catch(error => {
-            errorMsg.textContent = `${error.response.data.message}`;
-            [cityName, temp, weatherDescription, feelsLike, pressure, humidity, clouds, visibility, pollutionValue, windSpeed].forEach(el => {
-                el.textContent = '';
-            })
-            weatherImg.src = '';
-            pollutionImg.style.backgroundColor = 'transparent';
-
+        });
+    }).catch(error => {
+        errorMsg.textContent = error.response?.data?.message || 'Wystąpił błąd podczas pobierania danych.';
+        [cityName, temp, weatherDescription, feelsLike, pressure, humidity, clouds, visibility, pollutionValue, windSpeed].forEach(el => {
+            el.textContent = '';
+        });
+        weatherImg.style.display = 'none';
+        weatherImg.src = '';
+        pollutionImg.style.backgroundColor = 'transparent';
     }).finally(() => {
         input.value = '';
-    })
+    });
 }
 
 button.addEventListener('click', getWeather);
+
+input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        getWeather();
+    }
+});
+
+const themeBtn = document.getElementById('toggle-theme-btn');
+
+themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+});

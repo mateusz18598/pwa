@@ -1,0 +1,260 @@
+/* ===== RESET / BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #e0f7fa, #e1bee7);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark {
+    background: linear-gradient(135deg, #1c1c1c, #333);
+    color: #eee;
+}
+
+header, footer {
+    text-align: center;
+    padding: 10px;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: #4a148c;
+    margin-bottom: 10px;
+}
+
+body.dark header h1,
+body.dark footer p {
+    color: #fff;
+}
+
+footer p {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+body.dark footer p {
+    color: #ccc;
+}
+
+/* ===== MAIN LAYOUT ===== */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* ===== SEARCH SECTION ===== */
+.search {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.search input {
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    width: 100%;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body.dark .search input {
+    background-color: #555;
+    color: #fff;
+    border: 1px solid #999;
+}
+
+.search button {
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #7b1fa2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search button:hover {
+    background-color: #4a148c;
+}
+
+body.dark .search button {
+    background-color: #333;
+    color: #fff;
+}
+
+body.dark .search button:hover {
+    background-color: #555;
+}
+
+.error_message {
+    color: red;
+    font-size: 0.9rem;
+    min-height: 1em;
+}
+
+/* ===== WEATHER SECTION ===== */
+.weather {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+}
+
+body.dark .weather {
+    background-color: rgba(50, 50, 50, 0.85);
+}
+
+.weather h2 {
+    font-size: 1.5rem;
+    color: #4a148c;
+    text-align: center;
+}
+
+body.dark .weather h2 {
+    color: #ddd;
+}
+
+.weather div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.weather img {
+    width: 60px;
+    height: 60px;
+}
+
+.weather span.temp {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* ===== AIR POLLUTION ===== */
+.air_pollution {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+}
+
+body.dark .air_pollution {
+    background-color: rgba(50, 50, 50, 0.85);
+}
+
+.air_pollution h3 {
+    font-size: 1.3rem;
+    color: #4a148c;
+}
+
+body.dark .air_pollution h3 {
+    color: #ddd;
+}
+
+.air_pollution div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pollution_img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+/* ===== RESPONSYWNOŚĆ ===== */
+@media (min-width: 768px) {
+    main {
+        max-width: 700px;
+    }
+
+    .weather div {
+        justify-content: flex-start;
+    }
+
+    .weather span.temp {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .search input, .search button {
+        font-size: 0.95rem;
+        padding: 10px;
+    }
+
+    .weather h2 {
+        font-size: 1.2rem;
+    }
+
+    .weather img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .air_pollution div {
+        flex-direction: column;
+    }
+}
+
+/* ===== THEME TOGGLE BUTTON ===== */
+#toggle-theme-btn {
+    padding: 8px 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #7b1fa2;
+    color: white;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    margin: 10px auto 20px auto;
+    display: block;
+}
+
+#toggle-theme-btn:hover {
+    background-color: #4a148c;
+}
+
+body.dark #toggle-theme-btn {
+    background-color: #333;
+    color: #fff;
+}
+
+body.dark #toggle-theme-btn:hover {
+    background-color: #555;
+}
+
+.weather_img {
+    display: none;
+    width: 60px;
+    height: 60px;
+}
